@@ -52,7 +52,8 @@ var navOptions = {
   trackerCode: conf.trackerCode || null,
   methodHeadingReturns: conf.methodHeadingReturns === true,
   sort: conf.sort,
-  search: searchEnabled
+  search: searchEnabled,
+  hideAttribs: conf.hideAttribs || false
 };
 var searchableDocuments = {};
 
