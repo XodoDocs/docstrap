@@ -87,11 +87,11 @@ var navigationMaster = {
     link: helper.getUniqueFilename("events.list"),
     members: []
   },
-  // interface: {
-  //   title: "Interfaces",
-  //   link: helper.getUniqueFilename("interfaces.list"),
-  //   members: []
-  // },
+  interface: {
+    title: "Interfaces",
+    link: helper.getUniqueFilename("interfaces.list"),
+    members: []
+  },
   tutorial: {
     title: "Tutorials",
     link: helper.getUniqueFilename("tutorials.list"),
@@ -400,7 +400,7 @@ function buildNav(members) {
     members.events.forEach(function(e) {
       if (!hasOwnProp.call(seen, e.longname) && nav.module) {
 
-        nav.event.members.push(linkto(e.longname, e.longname.replace("module:", "")));
+        nav.event.members.push(linkto(e.longname, e.name));
       }
       seen[e.longname] = true;
     });
@@ -431,17 +431,17 @@ function buildNav(members) {
 
   // }
 
-  // if (members.interfaces && members.interfaces.length) {
+  if (members.interfaces && members.interfaces.length) {
 
-  //   members.interfaces.forEach(function(m) {
-  //     if (!hasOwnProp.call(seen, m.longname) && nav.module) {
+    members.interfaces.forEach(function(m) {
+      if (!hasOwnProp.call(seen, m.longname) && nav.module) {
 
-  //       nav.interface.members.push(linkto(m.longname, m.longname.replace("module:", "")));
-  //     }
-  //     seen[m.longname] = true;
-  //   });
+        nav.interface.members.push(linkto(m.longname, m.longname.replace("module:", "")));
+      }
+      seen[m.longname] = true;
+    });
 
-  // }
+  }
 
   if (members.tutorials.length) {
 
@@ -744,12 +744,12 @@ exports.publish = function(taffyData, opts, tutorials) {
   //   }], navigationMaster.mixin.link);
   // }
 
-  // if (view.nav.interface && view.nav.interface.members.length) {
-  //   generate('interface', view.nav.interface.title, [{
-  //     kind: 'sectionIndex',
-  //     contents: view.nav.interface
-  //   }], navigationMaster.interface.link);
-  // }
+  if (view.nav.interface && view.nav.interface.members.length) {
+    generate('interface', view.nav.interface.title, [{
+      kind: 'sectionIndex',
+      contents: view.nav.interface
+    }], navigationMaster.interface.link);
+  }
 
   if (view.nav.external && view.nav.external.members.length) {
     generate('external', view.nav.external.title, [{
