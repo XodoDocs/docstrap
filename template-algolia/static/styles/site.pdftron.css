@@ -6940,7 +6940,7 @@ code {
 }
 .member-collapsed {
   background-color: #00a5e4;
-  color: #fac0ba;
+  color: #fff;
 }
 .member-open {
   background-color: inherit;
