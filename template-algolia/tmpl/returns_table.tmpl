@@ -30,7 +30,7 @@
 
         if (data.name) {
             datas.hasName = true;
-        } else if (data.description && data.description.search(" - ")) {
+        } else if (data.description && (data.description.search(" - ") != -1)) {
             data.name = data.description.replace(/ .*/, '').substr(data.description.indexOf(">") + 1);
             datas.hasName = true;
         }
@@ -106,7 +106,7 @@
             <?js } ?>
 
             <td class="description last">
-            <?js if (data.description && data.description.search(" - ")) {?>
+            <?js if (data.description && (data.description.search(" - ") != -1)) {?>
                 <?js= data.description.substr(data.description.indexOf(" - ") + 3) ?>
             <?js } else { ?>
                 <?js= data.description ?>
