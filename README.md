@@ -87,7 +87,14 @@ DocStrap ships with a `conf.json` file in the template/ directory. It is just a 
 	"dateFormat"            : "{string}",
 	"syntaxTheme"           : "{string}",
 	"sort"					: "{boolean|string}",
-	"search"                : "{boolean}" 
+	"search"                : "{boolean}",
+
+	// Added in this fork
+	"hideAttribs"           : true,
+	"detailsSameLine"       : true,
+	"returnsInTable"        : true,
+	"hideMethodSignature"   : true
+
 }
 
 ```
@@ -147,6 +154,10 @@ DocStrap ships with a `conf.json` file in the template/ directory. It is just a 
     but at least you have it if you need it.
 *  __sort__ Defaults to true. Specifies whether jsdoc should sort data or use file order. Can also be a string and if so it is passed to jsdoc directly. The default string is `"longname, version, since"`.
 *  __search__ By default, the template includes a quick search box. For large APIs, the search database can be too expensive to load. If needed you can disable this feature setting this option to false. 
+* __hideAttribs__ Defaults to false. Specifies whether to hide attributes like `<static>` from members' headers.
+* __detailsSameLine__ Defaults to false. When false, all details (like type and version) will list their information in bullet points after the detail's title. When true, details that will always have just one item of information will list their info on the same line as the detail's title.
+* __returnsInTable__ Defaults to false. When false, return values are displayed using bullet points. When true, return values are displayed in a table using the same style as parameter tables.
+* __hideMethodSignature__ Defaults to false. When false, method headers will look like `foo(arg1, arg2)`. When true, method headers will exclude the signature and simply have `foo`.
 
 ## Syntax Highlighting ##
 
