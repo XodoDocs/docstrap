@@ -53,7 +53,8 @@ var navOptions = {
   methodHeadingReturns: conf.methodHeadingReturns === true,
   sort: conf.sort,
   search: searchEnabled,
-  hideAttribs: conf.hideAttribs || false
+  hideAttribs: conf.hideAttribs || false,
+  detailsSameLine: conf.detailsSameLine || false,
 };
 var searchableDocuments = {};
 
