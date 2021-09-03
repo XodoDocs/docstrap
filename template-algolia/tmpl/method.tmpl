@@ -24,8 +24,17 @@ var self = this;
     <?js } ?>
 
     <?js if (kind === 'event' && data && data.type && data.type.names) {?>
-        <h5>Type: <?js= self.partial('type.tmpl', data.type.names) ?></h5>
-    <?js } ?>
+        <?js if (this.navOptions.detailsSameLine) {?>
+            <h5>
+                <span style="font-weight: bold">Type: </span>
+                <span style="font-weight: normal"><?js= self.partial('type.tmpl', data.type.names) ?></span>
+            </h5>
+        <?js } else { ?>
+            <h5>
+                <?js= self.partial('type.tmpl', data.type.names) ?>
+            </h5>
+        <?js } ?>    
+    <?js } ?>    
 
     <?js if (data['this']) { ?>
         <h5>This:</h5>

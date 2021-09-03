@@ -18,13 +18,17 @@ var self = this;
     <?js } ?>
 
     <?js if (data && data.type && data.type.names) {?>
-        <h5>Type:</h5>
-        <ul>
-            <li>
+        <?js if (this.navOptions.detailsSameLine) {?>
+            <h5>
+                <span style="font-weight: bold">Type: </span>
+                <span style="font-weight: normal"><?js= self.partial('type.tmpl', data.type.names) ?></span>
+            </h5>
+        <?js } else { ?>
+            <h5>
                 <?js= self.partial('type.tmpl', data.type.names) ?>
-            </li>
-        </ul>
-    <?js } ?>
+            </h5>
+        <?js } ?>    
+    <?js } ?>    
 
     <?js= this.partial('details.tmpl', data) ?>
 
