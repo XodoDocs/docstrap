@@ -87,21 +87,24 @@ var self = this;
         <?js });
     } } ?>
 
-    <?js if (data.returns && returns.length) { ?>
-        <h5>Returns:</h5>
-        <?js if (this.navOptions.returnsInTable) {?>    
-            <?js= this.partial('returns_table.tmpl', data.returns) ?>
-        <?js } else { ?>
-            <?js if (returns.length > 1) { ?><ul><?js
-            returns.forEach(function(r) { ?>
-                <li><?js= self.partial('returns.tmpl', r) ?></li>
-            <?js });
-        ?></ul><?js } else {
-            returns.forEach(function(r) { ?>
-                <?js= self.partial('returns.tmpl', r) ?>
-            <?js });
-        } ?>
-        <?js } ?> 
+    <?js if (data.returns && returns.length) { 
+        if (returns.length === 1 && returns[0].type && returns[0].type.names && returns[0].type.names[0] === "void") {
+        } else { ?>
+            <h5>Returns:</h5>
+            <?js if (this.navOptions.returnsInTable) {?>    
+                <?js= this.partial('returns_table.tmpl', data.returns) ?>
+            <?js } else { ?>
+                    <?js if (returns.length > 1) { ?><ul><?js
+                    returns.forEach(function(r) { ?>
+                        <li><?js= self.partial('returns.tmpl', r) ?></li>
+                    <?js });
+                ?></ul><?js } else {
+                    returns.forEach(function(r) { ?>
+                        <?js= self.partial('returns.tmpl', r) ?>
+                    <?js });
+                } ?>
+            <?js } ?> 
+        <?js } ?>  
     <?js } ?>  
 
     <?js if (data.examples && examples.length) { ?>
