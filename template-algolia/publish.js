@@ -56,6 +56,7 @@ var navOptions = {
   hideAttribs: conf.hideAttribs || false,
   detailsSameLine: conf.detailsSameLine || false,
   returnsInTable: conf.returnsInTable || false,
+  hideMethodSignature: conf.hideMethodSignature || false,
 };
 var searchableDocuments = {};
 
