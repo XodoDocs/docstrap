@@ -32,7 +32,6 @@
             datas.hasName = true;
         } else if (data.description && data.description.search(" - ")) {
             data.name = data.description.replace(/ .*/, '').substr(data.description.indexOf(">") + 1);
-            console.log(data.name); 
             datas.hasName = true;
         }
 
