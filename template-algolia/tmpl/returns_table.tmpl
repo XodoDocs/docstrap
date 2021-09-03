@@ -30,6 +30,10 @@
 
         if (data.name) {
             datas.hasName = true;
+        } else if (data.description && data.description.search(" - ")) {
+            data.name = data.description.replace(/ .*/, '').substr(data.description.indexOf(">") + 1);
+            console.log(data.name); 
+            datas.hasName = true;
         }
 
         if (typeof data.defaultvalue !== 'undefined') {
@@ -102,7 +106,14 @@
                 </td>
             <?js } ?>
 
-            <td class="description last"><?js= data.description ?><?js if (data.subdatas) { ?>
+            <td class="description last">
+            <?js if (data.description && data.description.search(" - ")) {?>
+                <?js= data.description.substr(data.description.indexOf(" - ") + 3) ?>
+            <?js } else { ?>
+                <?js= data.description ?>
+            <?js } ?>
+
+            <?js if (data.subdatas) { ?>
                 <h6 class="method-params-label method-subparams-label">Properties</h6>
                 <?js= self.partial('returns.tmpl', data.subdatas) ?>
             <?js } ?></td>
