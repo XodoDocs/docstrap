@@ -3,9 +3,11 @@
     var self = this;
     data.forEach(function(name, i) {         
         let type = self.linkto(name, self.htmlsafe(name));
-        let index = type.indexOf(".");
-        if ( index !== -1) {
-            type = type.replace(".","");
+        if (type.includes("Array") || (type.includes("Promise"))) {
+            let index = type.indexOf(".");
+            if ( index !== -1) {
+                type = type.replace(".","");
+            }
         }
     ?>
 <code class="param-type"><?js= type ?></code>
