@@ -156,7 +156,11 @@ DocStrap ships with a `conf.json` file in the template/ directory. It is just a 
 *  __search__ By default, the template includes a quick search box. For large APIs, the search database can be too expensive to load. If needed you can disable this feature setting this option to false. 
 * __hideAttribs__ Defaults to false. Specifies whether to hide attributes like `<static>` from members' headers.
 * __detailsSameLine__ Defaults to false. When false, all details (like type and version) will list their information in bullet points after the detail's title. When true, details that will always have just one item of information will list their info on the same line as the detail's title.
-* __returnsInTable__ Defaults to false. When false, return values are displayed using bullet points. When true, return values are displayed in a table using the same style as parameter tables.
+* __returnsInTable__ Defaults to false. When false, return values are displayed using bullet points. When true:
+	- return values are displayed in a table using the same style as parameter tables. 
+	- methods that return just `void` will not have return table.
+	- duplicate return values will not be included (checks if a non-0 index value has a type but no description; may optimize later).
+	- return value names are parsed and extracted into Name column. Use syntax: `@returns {type} <name> - <description>`.
 * __hideMethodSignature__ Defaults to false. When false, method headers will look like `foo(arg1, arg2)`. When true, method headers will exclude the signature and simply have `foo`.
 
 ## Syntax Highlighting ##
