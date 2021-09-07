@@ -38,6 +38,10 @@
         if (typeof data.defaultvalue !== 'undefined') {
             datas.hasDefault = true;
         }
+
+        if (datas.description) {
+            datas.hasDescription = true;
+        }
     });
 
 ?>
@@ -59,7 +63,9 @@
         <th>Default</th>
         <?js } ?>
 
+        <?js if (datas.hasDescription) {?>
         <th class="last">Description</th>
+        <?js } ?>
     </tr>
     </thead>
 
@@ -105,12 +111,13 @@
                 </td>
             <?js } ?>
 
+            <?js if (datas.hasDescription) {?>
             <td class="description last">
             <?js if (data.description && (data.description.search(" - ") != -1)) {?>
                 <?js= data.description.substr(data.description.indexOf(" - ") + 3) ?>
             <?js } else { ?>
                 <?js= data.description ?>
-            <?js } ?>
+            <?js } } ?>
 
             <?js if (data.subdatas) { ?>
                 <h6 class="method-params-label method-subparams-label">Properties</h6>
