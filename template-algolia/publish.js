@@ -485,32 +485,12 @@ function buildNav(members) {
 }
 
 /**
- * Contains the names of objects whose tags we want to change.
- * Keys: longnames of doclets whose tags should be changed.
- * Values: object containing tags w/ values to assign to the doclet.
- */
-const newTags = {
-  DocumentViewPropTypes: {kind: "class", hideconstructor: true},
-  PDFViewCtrlPropTypes: {kind: "class", hideconstructor: true}
-}
-
-/**
  @param {TAFFY} taffyData See <http://taffydb.com/>.
  @param {object} opts
  @param {Tutorial} tutorials
  */
 exports.publish = function(taffyData, opts, tutorials) {
   data = taffyData;
-
-  // Override certain objects' tags.
-  data().each(function(doclet) {
-    if (newTags.hasOwnProperty(doclet.longname)) {
-      const info = newTags[doclet.longname];
-          for (const [key, value] of Object.entries(info)) {
-            doclet[key] = value;
-          }
-    }
-  });
 
   conf['default'] = conf['default'] || {};
 
