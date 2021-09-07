@@ -105,10 +105,16 @@ var self = this;
 		</h5>
 		<?js } ?>
 
+		<?js if (data.optional) {?>
+		<h5>
+		<span style="font-weight: bold">Optional.</span>
+		</h5>
+		<?js } ?>
+
 		<?js if (data.defaultvalue) {?>
 		<h5>
 		<span style="font-weight: bold">Default Value: </span>
-		<span style="font-weight: normal"><code class="param-type"><?js= self.linkto(name, self.htmlsafe(name)) ?></code></span>
+		<span style="font-weight: normal"><code><?js= data.defaultvalue ?></code></span>
 		</h5>
 		<?js } ?>
 

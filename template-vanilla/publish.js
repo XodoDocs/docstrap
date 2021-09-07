@@ -52,7 +52,11 @@ var navOptions = {
   trackerCode: conf.trackerCode || null,
   methodHeadingReturns: conf.methodHeadingReturns === true,
   sort: conf.sort,
-  search: searchEnabled
+  search: searchEnabled,
+  hideAttribs: conf.hideAttribs || false,
+  detailsSameLine: conf.detailsSameLine || false,
+  returnsInTable: conf.returnsInTable || false,
+  hideMethodSignature: conf.hideMethodSignature || false,
 };
 var searchableDocuments = {};
 
