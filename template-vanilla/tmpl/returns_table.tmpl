@@ -1,0 +1,130 @@
+<?js
+    var datas = obj;
+
+    /* sort subdatas under their parent datas (like opts.classname) */
+    var parentdata = null;
+    datas.forEach(function(data, i) {
+        if (!data) { return; }
+        if ( parentdata && data.name && data.name.indexOf(parentdata.name + '.') === 0 ) {
+            data.name = data.name.substr(parentdata.name.length+1);
+            parentdata.subdatas = parentdata.subdatas || [];
+            parentdata.subdatas.push(data);
+            datas[i] = null;
+        }
+        else {
+            parentdata = data;
+        }
+    });
+
+    /* determine if we need extra columns, "attributes" and "default" */
+    datas.hasAttributes = false;
+    datas.hasDefault = false;
+    datas.hasName = false;
+
+    datas.forEach(function(data) {
+        if (!data) { return; }
+
+        if (data.optional || data.nullable || data.variable) {
+            datas.hasAttributes = true;
+        }
+
+        if (data.name) {
+            datas.hasName = true;
+        } else if (data.description && (data.description.search(" - ") != -1)) {
+            data.name = data.description.replace(/ .*/, '').substr(data.description.indexOf(">") + 1);
+            datas.hasName = true;
+        }
+
+        if (typeof data.defaultvalue !== 'undefined') {
+            datas.hasDefault = true;
+        }
+
+        if (datas.description) {
+            datas.hasDescription = true;
+        }
+    });
+
+?>
+
+<table class="params table table-striped">
+    <thead>
+    <tr>
+        <?js if (datas.hasName) {?>
+        <th>Name</th>
+        <?js } ?>
+
+        <th>Type</th>
+
+        <?js if (datas.hasAttributes) {?>
+        <th>Argument</th>
+        <?js } ?>
+
+        <?js if (datas.hasDefault) {?>
+        <th>Default</th>
+        <?js } ?>
+
+        <?js if (datas.hasDescription) {?>
+        <th class="last">Description</th>
+        <?js } ?>
+    </tr>
+    </thead>
+
+    <tbody>
+    <?js
+        var self = this;
+        datas.forEach(function(data, i) {
+            if (!data || (i > 0 && data.type && !data.description)) { return; }
+    ?>
+
+        <tr>
+            <?js if (datas.hasName) {?>
+                <td class="name"><code><?js= data.name ?></code></td>
+            <?js } ?>
+
+            <td class="type">
+            <?js if (data.type && data.type.names) {?>
+                <?js= self.partial('type.tmpl', data.type.names) ?>
+            <?js } ?>
+            </td>
+
+            <?js if (datas.hasAttributes) {?>
+                <td class="attributes">
+                <?js if (data.optional) { ?>
+                    &lt;optional><br>
+                <?js } ?>
+
+                <?js if (data.nullable) { ?>
+                    &lt;nullable><br>
+                <?js } ?>
+
+                <?js if (data.variable) { ?>
+                    &lt;repeatable><br>
+                <?js } ?>
+                </td>
+            <?js } ?>
+
+            <?js if (datas.hasDefault) {?>
+                <td class="default">
+                <?js if (typeof data.defaultvalue !== 'undefined') { ?>
+                    <?js= self.htmlsafe(data.defaultvalue) ?>
+                <?js } ?>
+                </td>
+            <?js } ?>
+
+            <?js if (datas.hasDescription) {?>
+            <td class="description last">
+            <?js if (data.description && (data.description.search(" - ") != -1)) {?>
+                <?js= data.description.substr(data.description.indexOf(" - ") + 3) ?>
+            <?js } else { ?>
+                <?js= data.description ?>
+            <?js } } ?>
+
+            <?js if (data.subdatas) { ?>
+                <h6 class="method-params-label method-subparams-label">Properties</h6>
+                <?js= self.partial('returns_table.tmpl', data.subdatas) ?>
+            <?js } ?></td>
+        </tr>
+
+    <?js }); ?>
+    </tbody>
+</table>
