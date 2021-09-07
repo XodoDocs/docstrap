@@ -203,7 +203,7 @@
 .sunlight-lisp .sunlight-operator,
 .sunlight-6502asm .sunlight-pseudoOp,
 .sunlight-erlang .sunlight-macro {
-	color: #FF00B2 !important;
+	color: #000000 !important;
 }
 .sunlight-specialVariable {
 	font-style: italic !important;
