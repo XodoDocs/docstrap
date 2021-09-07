@@ -57,6 +57,7 @@ var navOptions = {
   detailsSameLine: conf.detailsSameLine || false,
   returnsInTable: conf.returnsInTable || false,
   hideMethodSignature: conf.hideMethodSignature || false,
+  sourceRoot: conf.sourceRoot || null,
 };
 var searchableDocuments = {};
 

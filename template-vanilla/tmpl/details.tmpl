@@ -118,14 +118,22 @@ var self = this;
 		</h5>
 		<?js } ?>
 
-
-
-		<?js if (data.meta && this.navOptions.outputSourceFiles) {?>
-		<h5>
-		<span style="font-weight: bold">Source: </span>
-		<?js= self.linkto(meta.shortpath) ?><?js if (this.navOptions.linenums) {?>,
-		<?js= self.linkto(meta.shortpath, 'line ' + meta.lineno, null, 'sunlight-1-line-' + meta.lineno) ?><?js } ?>
-		</h5>
+		<?js if (data.meta && this.navOptions.outputSourceFiles) {
+			if (this.navOptions.sourceRoot) {
+				let filepath = this.navOptions.sourceRoot + meta.shortpath; ?>
+				<h5>
+				<span style="font-weight: bold">Source: </span>
+				<?js= self.linkto(filepath, filepath.substr(filepath.lastIndexOf("/") + 1)) ?>
+				<?js if (this.navOptions.linenums) {?>
+				<?js= self.linkto(filepath, 'line ' + meta.lineno, null, '#L' + meta.lineno) ?><?js } ?>
+				</h5>
+			<?js } else { ?>
+				<h5>
+				<span style="font-weight: bold">Source: </span>
+				<?js= self.linkto(meta.shortpath) ?><?js if (this.navOptions.linenums) {?>,
+				<?js= self.linkto(meta.shortpath, 'line ' + meta.lineno, null, 'sunlight-1-line-' + meta.lineno) ?><?js } ?>
+				</h5>
+			<?js } ?>		
 
 		<?js } else if (data.meta && this.navOptions.outputSourcePath) { ?>
 		<dt class="tag-source method-doc-label method-doc-details-label">Source:</dt>
