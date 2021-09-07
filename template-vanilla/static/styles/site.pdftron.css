@@ -1278,6 +1278,9 @@ h5,
 h5 span {
   font-size: 13px;
 }
+h5 a {
+  font-size: 13px;
+}
 h6,
 .h6 {
   font-size: 12px;
