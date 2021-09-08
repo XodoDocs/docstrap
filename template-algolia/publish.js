@@ -58,6 +58,7 @@ var navOptions = {
   returnsInTable: conf.returnsInTable || false,
   hideMethodSignature: conf.hideMethodSignature || false,
   sourceRoot: conf.sourceRoot || null,
+  renderConstantsFor: conf.renderConstantsFor || null,
 };
 var searchableDocuments = {};
 

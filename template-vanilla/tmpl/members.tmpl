@@ -32,6 +32,17 @@ var self = this;
 
     <?js= this.partial('details.tmpl', data) ?>
 
+    <?js if (data.meta && this.navOptions.renderConstantsFor 
+        && this.navOptions.renderConstantsFor.includes(data.meta.filename)
+        && data.meta.code && data.meta.code.value) { 
+            let object = JSON.parse(data.meta.code.value); ?>
+            <h5>Constants:</h5>
+            <ul style="columns: 2 auto; column-gap: 40px;"><?js 
+            for (const key in object) { ?>
+                <li style="flex: 1 0 33.33%; word-wrap: break-word"><?js= key ?></li>
+            <?js } ?></ul>
+    <?js } ?>
+
     <?js if (data.examples && examples.length) { ?>
         <h5>Example<?js= examples.length > 1? 's':'' ?></h5>
         <?js= this.partial('examples.tmpl', examples) ?>
