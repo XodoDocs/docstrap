@@ -90,10 +90,12 @@ DocStrap ships with a `conf.json` file in the template/ directory. It is just a 
 	"search"                : "{boolean}",
 
 	// Added in this fork
-	"hideAttribs"           : true,
-	"detailsSameLine"       : true,
-	"returnsInTable"        : true,
-	"hideMethodSignature"   : true
+	"hideAttribs"           : "{boolean}",
+	"detailsSameLine"       : "{boolean}",
+	"returnsInTable"        : "{boolean}",
+	"hideMethodSignature"   : "{boolean}",
+	"sourceRoot"            : "{string}",
+	"renderConstantsFor"    : ["Example.js"]
 
 }
 
@@ -162,6 +164,17 @@ DocStrap ships with a `conf.json` file in the template/ directory. It is just a 
 	- duplicate return values will not be included (checks if a non-0 index value has a type but no description; may optimize later).
 	- return value names are parsed and extracted into Name column. Use syntax: `@returns {type} <name> - <description>`.
 * __hideMethodSignature__ Defaults to false. When false, method headers will look like `foo(arg1, arg2)`. When true, method headers will exclude the signature and simply have `foo`.
+* __"sourceRoot"__ Defaults to null. When a string is provided, this will be used as the root when generating links to source files.
+* __"renderConstantsFor"__ Defaults to null. The array should contain the names of files. If a member of something in that file is an object, the keys of that member will be listed. For example:
+	```
+	// Food.js
+	export const Food = {
+		Snacks: {
+			chips: 'chips', // will be listed as a constant
+    		fries: 'fries' // will be listed as a constant
+		}
+	}
+	```
 
 ## Syntax Highlighting ##
 
