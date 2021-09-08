@@ -3,10 +3,14 @@
     var self = this;
     data.forEach(function(name, i) {         
         let type = self.linkto(name, self.htmlsafe(name));
-        if (type.includes("Array") || (type.includes("Promise"))) {
-            let index = type.indexOf(".");
-            if ( index !== -1) {
+        let pos = 0;
+        while (type.includes("Array", pos) || type.includes("Promise", pos)) {
+            let index = type.indexOf(".", pos);
+            if (index !== -1) {
                 type = type.replace(".","");
+                pos = index;
+            } else {
+                break;
             }
         }
     ?>
