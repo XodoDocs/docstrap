@@ -495,6 +495,29 @@ exports.publish = function(taffyData, opts, tutorials) {
 
   conf['default'] = conf['default'] || {};
 
+  // add hidesource tag to the members of a class or interface
+  let hideSource = [];
+  data().each(function(doclet) {
+    if (doclet.tags) {
+      doclet.tags.forEach(function (tag) {
+        if (tag.title === 'hidesource') {
+          hideSource.push(doclet.name);
+          Object.assign(doclet, {hidesource: true})
+        }
+      });
+    }
+
+    if (doclet.memberof) {
+      function shouldHideSource(name) {
+        return doclet.memberof === name;
+      }
+
+      if (hideSource.find(shouldHideSource)) {
+        Object.assign(doclet, {hidesource: true});
+      }
+    }
+  });
+
   var templatePath = opts.template;
   view = new template.Template(templatePath + '/tmpl');
 
