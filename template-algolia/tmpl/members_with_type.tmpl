@@ -39,7 +39,9 @@ var self = this;
             <h5>Constants:</h5>
             <ul style="columns: 2 auto; column-gap: 40px;"><?js 
             for (const key in object) { ?>
-                <li style="flex: 1 0 33.33%; word-wrap: break-word"><?js= key ?></li>
+                <li style="flex: 1 0 33.33%; word-wrap: break-word">
+                <code><?js= key ?></code>
+                </li>
             <?js } ?></ul>
     <?js } ?>
 
