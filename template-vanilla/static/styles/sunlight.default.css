@@ -8,8 +8,9 @@
 	clear: both !important;
 	position: relative !important;
 	border: none;
-	border-color: #969696 !important;
+	border-color: transparent !important;
 	background-color: #FFFFFF !important;
+	border-radius: 5px;
 }
 .sunlight-highlighted, .sunlight-container, .sunlight-container textarea {
 	font-family: Consolas, Inconsolata, Monaco, "Courier New" !important;
@@ -46,7 +47,8 @@
 	padding: 0 !important;
 	padding-right: 4px !important;
 	padding-left: 4px !important;
-	border-right: 1px solid #CCCCCC !important;
+	border-right: 0px solid #CCCCCC !important;
+	border-radius: 5px;
 	background-color: #EEEEEE !important;
 	color: #848484 !important;
 	text-align: right !important;
@@ -59,6 +61,7 @@
 	font-weight: normal !important;
 	font-style: normal !important;
 	padding: 0 !important;
+	border-radius: 5px;
 }
 .sunlight-line-number-margin a {
 	color: inherit !important;
@@ -96,6 +99,7 @@
 	color: #000099 !important;
 	text-decoration: none !important;
 	border: none !important;
+	border-radius: 5px;
 }
 
 
@@ -244,6 +248,7 @@
 	background-color: #EEEEEE !important;
 	color: #000000 !important;
 	border: 1px solid #000000 !important;
+	border-radius: 5px;
 }
 .sunlight-xml .sunlight-doctype {
 	color: #2B91AF !important;
