@@ -1,69 +1,55 @@
 <?js
     var datas = obj;
-
-    /* sort subdatas under their parent datas (like opts.classname) */
-    var parentdata = null;
-    datas.forEach(function(data, i) {
-        if (!data) { return; }
-        if ( parentdata && data.name && data.name.indexOf(parentdata.name + '.') === 0 ) {
-            data.name = data.name.substr(parentdata.name.length+1);
-            parentdata.subdatas = parentdata.subdatas || [];
-            parentdata.subdatas.push(data);
-            datas[i] = null;
-        }
-        else {
-            parentdata = data;
-        }
-    });
+    var data = datas[0];
 
     /* determine if we need extra columns, "attributes" and "default" */
-    datas.hasAttributes = false;
-    datas.hasDefault = false;
-    datas.hasName = false;
+    data.hasAttributes = false;
+    data.hasDefault = false;
+    data.hasName = false;
 
-    datas.forEach(function(data) {
-        if (!data) { return; }
+    
+    if (!data) { return; }
 
-        if (data.optional || data.nullable || data.variable) {
-            datas.hasAttributes = true;
-        }
+    if (data.optional || data.nullable || data.variable) {
+        data.hasAttributes = true;
+    }
 
-        if (data.name) {
-            datas.hasName = true;
-        } else if (data.description && (data.description.search(" - ") != -1)) {
-            data.name = data.description.replace(/ .*/, '').substr(data.description.indexOf(">") + 1);
-            datas.hasName = true;
-        }
+    if (data.name) {
+        data.hasName = true;
+    } else if (data.description && (data.description.search(" - ") != -1)) {
+        data.name = data.description.substr(0, data.description.indexOf(" "));
+        data.name = data.name.substr(data.description.indexOf(">") + 1);
+        data.hasName = true;
+    }
 
-        if (typeof data.defaultvalue !== 'undefined') {
-            datas.hasDefault = true;
-        }
+    if (typeof data.defaultvalue !== 'undefined') {
+        data.hasDefault = true;
+    }
 
-        if (data.description) {
-            datas.hasDescription = true;
-        }
-    });
+    if (data.description) {
+        data.hasDescription = true;
+    }
 
 ?>
 
 <table class="params table table-striped">
     <thead>
     <tr>
-        <?js if (datas.hasName) {?>
+        <?js if (data.hasName) {?>
         <th>Name</th>
         <?js } ?>
 
         <th>Type</th>
 
-        <?js if (datas.hasAttributes) {?>
+        <?js if (data.hasAttributes) {?>
         <th>Argument</th>
         <?js } ?>
 
-        <?js if (datas.hasDefault) {?>
+        <?js if (data.hasDefault) {?>
         <th>Default</th>
         <?js } ?>
 
-        <?js if (datas.hasDescription) {?>
+        <?js if (data.hasDescription) {?>
         <th class="last">Description</th>
         <?js } ?>
     </tr>
@@ -72,12 +58,11 @@
     <tbody>
     <?js
         var self = this;
-        datas.forEach(function(data, i) {
-            if (!data || (i > 0 && data.type && !data.description)) { return; }
+        if (!data) { return; }
     ?>
 
         <tr>
-            <?js if (datas.hasName) {?>
+            <?js if (data.hasName) {?>
                 <td class="name"><code><?js= data.name ?></code></td>
             <?js } ?>
 
@@ -87,7 +72,7 @@
             <?js } ?>
             </td>
 
-            <?js if (datas.hasAttributes) {?>
+            <?js if (data.hasAttributes) {?>
                 <td class="attributes">
                 <?js if (data.optional) { ?>
                     &lt;optional><br>
@@ -103,7 +88,7 @@
                 </td>
             <?js } ?>
 
-            <?js if (datas.hasDefault) {?>
+            <?js if (data.hasDefault) {?>
                 <td class="default">
                 <?js if (typeof data.defaultvalue !== 'undefined') { ?>
                     <?js= self.htmlsafe(data.defaultvalue) ?>
@@ -111,7 +96,7 @@
                 </td>
             <?js } ?>
 
-            <?js if (datas.hasDescription) {?>
+            <?js if (data.hasDescription) {?>
             <td class="description last">
             <?js if (data.description && (data.description.search(" - ") != -1)) {?>
                 <?js= data.description.substr(data.description.indexOf(" - ") + 3) ?>
@@ -119,12 +104,6 @@
                 <?js= data.description ?>
             <?js } } ?>
 
-            <?js if (data.subdatas) { ?>
-                <h6 class="method-params-label method-subparams-label">Properties</h6>
-                <?js= self.partial('returns_table.tmpl', data.subdatas) ?>
-            <?js } ?></td>
         </tr>
-
-    <?js }); ?>
     </tbody>
 </table>
