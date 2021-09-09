@@ -176,7 +176,7 @@ DocStrap ships with a `conf.json` file in the template/ directory. It is just a 
 		}
 	}
 	```
-* __categories__ Defaults to false. When `categories` is true and `sort` is "category", members and methods will be sorted by the values of their `@category` tags. Members with the same category will be placed under a subheading labelled with the title of their category; the same is true for methods but separately from members. Thes subheadings will also show up in the side nav. 
+* __categories__ Defaults to false. When `categories` is true and `sort` is "category", members, methods, and events will be sorted within their groups by the values of their `@category` tags. Items with the same category will be placed under a subheading labelled with the title of their category. These subheadings will also show up in the side nav. 
 
 ## Syntax Highlighting ##
 
