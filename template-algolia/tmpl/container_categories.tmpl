@@ -130,6 +130,7 @@
             members.forEach(function(p) {
                 if (p.category && category !== p.category) {
                     category = p.category; ?>
+                    <br>
                     <h3 class="subsection-title"><?js= category ?></h3>
                 <?js }
                 if (!otherSeen && !p.category && category !== '') { ?><h3 class="subsection-title">Other</h3><?js 
@@ -150,6 +151,7 @@
             methods.forEach(function(m) {
                 if (m.category && category !== m.category) {
                     category = m.category; ?>
+                    <br>
                     <h3 class="subsection-title"><?js= category ?></h3>
                 <?js }
                 if (!otherSeen && !m.category && category !== '') { ?><h3 class="subsection-title">Other</h3><?js 
@@ -190,6 +192,7 @@
             events.forEach(function(e) {
                 if (e.category && category !== e.category) {
                     category = e.category; ?>
+                    <br>
                     <h3 class="subsection-title"><?js= category ?></h3>
                 <?js }
                 if (!otherSeen && !e.category && category !== '') { ?><h3 class="subsection-title">Other</h3><?js 
