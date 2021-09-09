@@ -184,7 +184,16 @@
     ?>
         <br><h2 class="subsection-title">Events</h2>
 
-        <dl><?js events.forEach(function(e) { ?>
+        <dl><?js 
+            let category = '';
+            let otherSeen = false;
+            events.forEach(function(e) {
+                if (e.category && category !== e.category) {
+                    category = e.category; ?>
+                    <h3 class="subsection-title"><?js= category ?></h3>
+                <?js }
+                if (!otherSeen && !e.category && category !== '') { ?><h3 class="subsection-title">Other</h3><?js 
+                    otherSeen = true; } ?>            
             <?js= self.partial('method.tmpl', e) ?>
         <?js }); ?></dl>
     <?js } ?>
