@@ -127,13 +127,14 @@
         <dl><?js 
             let category = '';
             let otherSeen = false;
-            members.forEach(function(p) {
+            members.forEach(function(p, i) {
                 if (p.category && category !== p.category) {
-                    category = p.category; ?>
-                    <br>
-                    <h3 class="subsection-title"><?js= category ?></h3>
+                    category = p.category; 
+                    if (i !== 0) { ?><br><?js } ?>
+                    <h3 class="subsection-title" style="font-style: italic;"><?js= category ?></h3>
                 <?js }
-                if (!otherSeen && !p.category && category !== '') { ?><h3 class="subsection-title">Other</h3><?js 
+                if (!otherSeen && !p.category && category !== '') { ?>
+                    <br><h3 class="subsection-title" style="font-style: italic;">Other</h3><?js 
                     otherSeen = true; } ?>            
             <?js= self.partial('members.tmpl', p) ?>
         <?js }); ?></dl>
@@ -148,13 +149,14 @@
         <dl><?js 
             let category = '';
             let otherSeen = false;
-            methods.forEach(function(m) {
+            methods.forEach(function(m, i) {
                 if (m.category && category !== m.category) {
-                    category = m.category; ?>
-                    <br>
-                    <h3 class="subsection-title"><?js= category ?></h3>
+                    category = m.category; 
+                    if (i !== 0) { ?><br><?js } ?>
+                    <h3 class="subsection-title" style="font-style: italic;"><?js= category ?></h3>
                 <?js }
-                if (!otherSeen && !m.category && category !== '') { ?><h3 class="subsection-title">Other</h3><?js 
+                if (!otherSeen && !m.category && category !== '') { ?>
+                    <br><h3 class="subsection-title" style="font-style: italic;">Other</h3><?js 
                     otherSeen = true; } ?>            
             <?js= self.partial('method.tmpl', m) ?>
         <?js }); ?></dl>
@@ -189,13 +191,14 @@
         <dl><?js 
             let category = '';
             let otherSeen = false;
-            events.forEach(function(e) {
+            events.forEach(function(e, i) {
                 if (e.category && category !== e.category) {
-                    category = e.category; ?>
-                    <br>
-                    <h3 class="subsection-title"><?js= category ?></h3>
+                    category = e.category; 
+                    if (i !== 0) { ?><br><?js } ?>
+                    <h3 class="subsection-title" style="font-style: italic;"><?js= category ?></h3>
                 <?js }
-                if (!otherSeen && !e.category && category !== '') { ?><h3 class="subsection-title">Other</h3><?js 
+                if (!otherSeen && !e.category && category !== '') { ?>
+                    <br><h3 class="subsection-title" style="font-style: italic;">Other</h3><?js 
                     otherSeen = true; } ?>            
             <?js= self.partial('method.tmpl', e) ?>
         <?js }); ?></dl>
