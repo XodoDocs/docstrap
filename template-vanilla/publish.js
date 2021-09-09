@@ -59,6 +59,7 @@ var navOptions = {
   hideMethodSignature: conf.hideMethodSignature || false,
   sourceRoot: conf.sourceRoot || null,
   renderConstantsFor: conf.renderConstantsFor || null,
+  categories: conf.categories || false,
 };
 var searchableDocuments = {};
 
@@ -269,8 +270,12 @@ function generate(docType, title, docs, filename, resolveLinks) {
     docType: docType
   };
 
-  var outpath = path.join(outdir, filename),
+  var outpath = path.join(outdir, filename), html;
+  if (navOptions.sort === "category" && navOptions.categories) {
+    html = view.render('container_categories.tmpl', docData);
+  } else {
     html = view.render('container.tmpl', docData);
+  }
 
   if (resolveLinks) {
     html = helper.resolveLinks(html); // turn {@link foo} into <a href="foodoc.html">foo</a>

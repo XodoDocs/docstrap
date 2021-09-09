@@ -95,7 +95,8 @@ DocStrap ships with a `conf.json` file in the template/ directory. It is just a 
 	"returnsInTable"        : "{boolean}",
 	"hideMethodSignature"   : "{boolean}",
 	"sourceRoot"            : "{string}",
-	"renderConstantsFor"    : ["Example.js"]
+	"renderConstantsFor"    : ["Example.js"],
+	"categories"            : "{boolean}",
 
 }
 
@@ -164,8 +165,8 @@ DocStrap ships with a `conf.json` file in the template/ directory. It is just a 
 	- duplicate return values will not be included (checks if a non-0 index value has a type but no description; may optimize later).
 	- return value names are parsed and extracted into Name column. Use syntax: `@returns {type} <name> - <description>`.
 * __hideMethodSignature__ Defaults to false. When false, method headers will look like `foo(arg1, arg2)`. When true, method headers will exclude the signature and simply have `foo`.
-* __"sourceRoot"__ Defaults to null. When a string is provided, this will be used as the root when generating links to source files.
-* __"renderConstantsFor"__ Defaults to null. The array should contain the names of files. If a member of something in that file is an object, the keys of that member will be listed. For example:
+* __sourceRoot__ Defaults to null. When a string is provided, this will be used as the root when generating links to source files.
+* __renderConstantsFor__ Defaults to null. The array should contain the names of files. If a member of something in that file is an object, the keys of that member will be listed. For example:
 	```
 	// Food.js
 	export const Food = {
@@ -175,6 +176,7 @@ DocStrap ships with a `conf.json` file in the template/ directory. It is just a 
 		}
 	}
 	```
+* __categories__ Defaults to false. When `categories` is true and `sort` is "category", members and methods will be sorted by the values of their `@category` tags. Members with the same category will be placed under a subheading labelled with the title of their category; the same is true for methods but separately from members. Thes subheadings will also show up in the side nav. 
 
 ## Syntax Highlighting ##
 
