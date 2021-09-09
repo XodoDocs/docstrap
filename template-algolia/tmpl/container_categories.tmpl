@@ -126,20 +126,13 @@
 
         <dl><?js 
             let category = '';
-            let categorySeen = false;
             let otherSeen = false;
             members.forEach(function(p) {
-                categorySeen = false;
-                if (p.tags) {
-                    for (let t of p.tags) {
-                        if (t.originalTitle === 'category' && category !== t.text) {
-                            category = t.text; 
-                            categorySeen = true; ?>
-                            <h3 class="subsection-title"><?js= category ?></h3>
-                        <?js break; }
-                    }
-                }
-                if (!otherSeen && !categorySeen && category !== '') { ?><h3 class="subsection-title">Other</h3><?js 
+                if (p.category && category !== p.category) {
+                    category = p.category; ?>
+                    <h3 class="subsection-title"><?js= category ?></h3>
+                <?js }
+                if (!otherSeen && !p.category && category !== '') { ?><h3 class="subsection-title">Other</h3><?js 
                     otherSeen = true; } ?>            
             <?js= self.partial('members.tmpl', p) ?>
         <?js }); ?></dl>
@@ -153,20 +146,13 @@
 
         <dl><?js 
             let category = '';
-            let categorySeen = false;
             let otherSeen = false;
-            methods.forEach(function(m) { 
-                categorySeen = false;
-                if (m.tags) {    
-                    for (let t of m.tags) {
-                        if (t.originalTitle === 'category' && category !== t.text) {
-                            category = t.text; 
-                            categorySeen = true; ?>
-                            <h3 class="subsection-title"><?js= category ?></h3>
-                        <?js break; }
-                    }
-                } 
-                if (!otherSeen && !categorySeen && category !== '') { ?><h3 class="subsection-title">Other</h3><?js 
+            methods.forEach(function(m) {
+                if (m.category && category !== m.category) {
+                    category = m.category; ?>
+                    <h3 class="subsection-title"><?js= category ?></h3>
+                <?js }
+                if (!otherSeen && !m.category && category !== '') { ?><h3 class="subsection-title">Other</h3><?js 
                     otherSeen = true; } ?>            
             <?js= self.partial('method.tmpl', m) ?>
         <?js }); ?></dl>
