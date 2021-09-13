@@ -60,6 +60,7 @@ var navOptions = {
   sourceRoot: conf.sourceRoot || null,
   renderConstantsFor: conf.renderConstantsFor || null,
   categories: conf.categories || false,
+  collapseCategories: conf.collapseCategories || false,
 };
 var searchableDocuments = {};
 
