@@ -154,6 +154,7 @@
       }
     }
 
+    // Add caret to list-group-item if not present
     var prependCaret = function(array) {
       if (array && array[0] && array[0].children.length === 1) {
         var caret = $('<b class="caret"></b>').attr('style', 'transform: rotate(-90deg);');
@@ -168,8 +169,8 @@
       var el = $(this);
       var ul = $('<div class="list-group">');
 
-      var supercat = '';
-      var category = '';
+      var supercat = ''; // Latest super-category (methods/members/events...)
+      var category = ''; // Latest category
 
       headings.each(function(i, heading) {
         var $h = $(heading);
@@ -180,7 +181,10 @@
           .text(opts.headerText(i, heading, $h));
 
         //build TOC item
-        var a = $('<a class="list-group-item"/>').append(span);
+        var a = $('<a class="list-group-item"/>')
+          .append(span)
+          .attr('href', '#' + opts.anchorName(i, heading, opts.prefix));
+
         span.addClass(opts.itemClass(i, heading, $h, opts.prefix));
         span.css('margin-left', '10px');
 
@@ -188,13 +192,14 @@
           case "toc-h2": 
             supercat = opts.anchorName(i, heading, opts.prefix);
             category = '';
-            a.attr('href', '#' + supercat)
-              .attr('data-supercat', supercat)
+            a.attr('data-supercat', supercat)
               .bind('click', function(e) {
                 scrollTo(e);
                 var children = document.querySelectorAll(`[data-in-supercat="${$(this).attr('data-supercat')}"]`);
                 Array.from(children).forEach((child) => { 
                   if (child.style.display === "none") {
+                    // When opening children of supercategories, avoid
+                    // automatically opening children within categories.
                     if (!child.getAttribute('data-in-category')) {
                       child.style.display = "block";
                     }
@@ -213,8 +218,7 @@
             break;
           case "toc-h3": 
             category = opts.anchorName(i, heading, opts.prefix);
-            a.attr('href', '#' + category)
-              .attr('style', 'display: none')
+            a.attr('style', 'display: none')
               .attr('data-category', category)
               .attr('data-in-supercat', supercat)
               .bind('click', function(e) {
@@ -237,8 +241,7 @@
             cats.set(category, a);
             break;
           case "toc-h4":
-            a.attr('href', '#' + opts.anchorName(i, heading, opts.prefix))
-              .attr('style', 'display: none')
+            a.attr('style', 'display: none')
               .attr('data-in-category', category)
               .attr('data-in-supercat', supercat)
               .bind('click', function(e) {
@@ -253,8 +256,7 @@
             break;
           default:
             category = '';
-            a.attr('href', '#' + opts.anchorName(i, heading, opts.prefix))
-              .bind('click', function(e) {
+            a.bind('click', function(e) {
                 scrollTo(e);
                 el.trigger('selected', $(this).attr('href'));
               });
