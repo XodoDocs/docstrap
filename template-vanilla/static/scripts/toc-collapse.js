@@ -145,6 +145,21 @@
       });
     }
 
+    var rotateCaret = function(caret) {
+      if (caret.style.transform === 'rotate(0deg)') {
+        caret.style.transform = 'rotate(-90deg)';
+      } else {
+        caret.style.transform = 'rotate(0deg)';
+      }
+    }
+
+    var prependCaret = function(array) {
+      if (array && array[0]) {
+        var caret = $('<b class="caret"></b>').attr('style', 'transform: rotate(-90deg);');
+        if (array[0].children.length === 1) array[0].prepend(caret[0]);
+      }
+    }
+
     return this.each(function() {
       //build TOC
       var el = $(this);
@@ -157,18 +172,18 @@
         var $h = $(heading);
 
         var anchor = $('<span/>').attr('id', opts.anchorName(i, heading, opts.prefix) + ANCHOR_PREFIX).insertBefore($h);
-
+        
         var span = $('<span/>')
           .text(opts.headerText(i, heading, $h));
 
         //build TOC item
-        var a = $('<a class="list-group-item"/>').append(span);
+        var a = $('<a class="list-group-item"/>');
 
         switch (opts.itemClass(i, heading, $h, opts.prefix)) {
           case "toc-h2": 
             supercat = opts.anchorName(i, heading, opts.prefix);
             category = '';
-            a.attr('href', '#' + supercat)
+            a.append(span).attr('href', '#' + supercat)
               .attr('data-supercat', supercat)
               .bind('click', function(e) {
                 scrollTo(e);
@@ -179,15 +194,20 @@
                       child.style.display = "block";
                     }
                   } else {
+                    var carets = child.getElementsByTagName("b");
+                    if (carets[0]) {
+                      carets[0].style.transform = 'rotate(-90deg)';
+                    }
                     child.style.display = "none";
                   }
                 });
+                rotateCaret($(this).find("b")[0]);
                 el.trigger('selected', $(this).attr('href'));
               });
-              break;
+            break;
           case "toc-h3": 
             category = opts.anchorName(i, heading, opts.prefix);
-            a.attr('href', '#' + category)
+            a.append(span).attr('href', '#' + category)
               .attr('style', 'display: none')
               .attr('data-category', category)
               .attr('data-in-supercat', supercat)
@@ -203,11 +223,15 @@
                     }
                   }
                 });
+                rotateCaret($(this).find("b")[0]);
                 el.trigger('selected', $(this).attr('href'));
               });
-              break;
+            var supercats = tocs.find(element => element.attr('data-supercat') === supercat);
+            prependCaret(supercats);
+            break;
           case "toc-h4":
-            a.attr('href', '#' + opts.anchorName(i, heading, opts.prefix))
+            a.append(span)
+              .attr('href', '#' + opts.anchorName(i, heading, opts.prefix))
               .attr('style', 'display: none')
               .attr('data-in-category', category)
               .attr('data-in-supercat', supercat)
@@ -215,10 +239,15 @@
                 scrollTo(e);
                 el.trigger('selected', $(this).attr('href'));
               });
+            var cats = tocs.find(element => element.attr('data-category') === category);
+            prependCaret(cats);
+            var supercats = tocs.find(element => element.attr('data-supercat') === supercat);
+            prependCaret(supercats);
             break;
           default:
             category = '';
-            a.attr('href', '#' + opts.anchorName(i, heading, opts.prefix))
+            a.append(span)
+              .attr('href', '#' + opts.anchorName(i, heading, opts.prefix))
               .bind('click', function(e) {
                 scrollTo(e);
                 el.trigger('selected', $(this).attr('href'));
