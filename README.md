@@ -178,6 +178,33 @@ DocStrap ships with a `conf.json` file in the template/ directory. It is just a 
 	```
 * __categories__ Defaults to false. When `categories` is true and `sort` is "category", members, methods, and events will be sorted within their groups by the values of their `@category` tags. Items with the same category will be placed under a subheading labelled with the title of their category. These subheadings will also show up in the side nav. 
 
+## Custom Tags ##
+
+If you are using a custom tag, make sure to add it to `conf.json`:
+```
+{
+    "tags": {
+        "allowUnknownTags": ["category"]
+    }
+}
+```
+
+Custom tags:
+
+- __`@category <categoryName>`__
+
+    Assigns a category to the symbol. See `categories` in [Configuring the template](#configuring-the-template).
+
+- __`@hidesource`__
+
+    The `@hidesource` tag hides links to source files where they are not needed.
+
+- __`@optional`__
+
+    Indicates that a component prop is optional.
+
+
+
 ## Syntax Highlighting ##
 
 ### Language ###
