@@ -157,7 +157,8 @@
     // Add caret to list-group-item if not present
     var prependCaret = function(array) {
       if (array && array[0] && array[0].children.length === 1) {
-        var caret = $('<b class="caret"></b>').attr('style', 'transform: rotate(-90deg);');
+        var caret = $('<b class="caret"></b>')
+          .attr('style', 'transform: rotate(-90deg); opacity: 80%;');
         array[0].prepend(caret[0]);
         return caret[0];
       } 
