@@ -216,6 +216,7 @@
               });
             cats.set(supercat, a);
             break;
+
           case "toc-h3": 
             category = opts.anchorName(i, heading, opts.prefix);
             a.attr('style', 'display: none')
@@ -236,10 +237,12 @@
                 rotateCaret($(this).find("b")[0]);
                 el.trigger('selected', $(this).attr('href'));
               });
+
             var caret = prependCaret( cats.get(supercat) );
             if (caret) caret.style['margin-left'] = '5px';
             cats.set(category, a);
             break;
+
           case "toc-h4":
             a.attr('style', 'display: none')
               .attr('data-in-category', category)
@@ -248,12 +251,15 @@
                 scrollTo(e);
                 el.trigger('selected', $(this).attr('href'));
               });
+
             var caret = prependCaret( cats.get(category) );
             if (caret) caret.style['margin-left'] = '14px';
+            
             caret = prependCaret( cats.get(supercat) );
             if (caret) caret.style['margin-left'] = '14px';
             span.css('margin-left', '40px');
             break;
+
           default:
             category = '';
             a.bind('click', function(e) {
