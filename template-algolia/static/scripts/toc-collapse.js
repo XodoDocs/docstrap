@@ -154,10 +154,12 @@
     }
 
     var prependCaret = function(array) {
-      if (array && array[0]) {
+      if (array && array[0] && array[0].children.length === 1) {
         var caret = $('<b class="caret"></b>').attr('style', 'transform: rotate(-90deg);');
-        if (array[0].children.length === 1) array[0].prepend(caret[0]);
-      }
+        array[0].prepend(caret[0]);
+        return caret[0];
+      } 
+      return null;
     }
 
     return this.each(function() {
@@ -177,13 +179,15 @@
           .text(opts.headerText(i, heading, $h));
 
         //build TOC item
-        var a = $('<a class="list-group-item"/>');
+        var a = $('<a class="list-group-item"/>').append(span);
+        span.addClass(opts.itemClass(i, heading, $h, opts.prefix));
+        span.css('margin-left', '10px');
 
         switch (opts.itemClass(i, heading, $h, opts.prefix)) {
           case "toc-h2": 
             supercat = opts.anchorName(i, heading, opts.prefix);
             category = '';
-            a.append(span).attr('href', '#' + supercat)
+            a.attr('href', '#' + supercat)
               .attr('data-supercat', supercat)
               .bind('click', function(e) {
                 scrollTo(e);
@@ -207,7 +211,7 @@
             break;
           case "toc-h3": 
             category = opts.anchorName(i, heading, opts.prefix);
-            a.append(span).attr('href', '#' + category)
+            a.attr('href', '#' + category)
               .attr('style', 'display: none')
               .attr('data-category', category)
               .attr('data-in-supercat', supercat)
@@ -227,11 +231,11 @@
                 el.trigger('selected', $(this).attr('href'));
               });
             var supercats = tocs.find(element => element.attr('data-supercat') === supercat);
-            prependCaret(supercats);
+            var caret = prependCaret(supercats);
+            if (caret) caret.style['margin-left'] = '5px';
             break;
           case "toc-h4":
-            a.append(span)
-              .attr('href', '#' + opts.anchorName(i, heading, opts.prefix))
+            a.attr('href', '#' + opts.anchorName(i, heading, opts.prefix))
               .attr('style', 'display: none')
               .attr('data-in-category', category)
               .attr('data-in-supercat', supercat)
@@ -240,21 +244,24 @@
                 el.trigger('selected', $(this).attr('href'));
               });
             var cats = tocs.find(element => element.attr('data-category') === category);
-            prependCaret(cats);
+            var caret = prependCaret(cats);
+            console.log(caret);
+            if (caret) caret.style['margin-left'] = '14px';
+            
             var supercats = tocs.find(element => element.attr('data-supercat') === supercat);
-            prependCaret(supercats);
+            caret = prependCaret(supercats);
+            if (caret) caret.style['margin-left'] = '14px';
+
+            span.css('margin-left', '40px');
             break;
           default:
             category = '';
-            a.append(span)
-              .attr('href', '#' + opts.anchorName(i, heading, opts.prefix))
+            a.attr('href', '#' + opts.anchorName(i, heading, opts.prefix))
               .bind('click', function(e) {
                 scrollTo(e);
                 el.trigger('selected', $(this).attr('href'));
               });
         }
-
-        span.addClass(opts.itemClass(i, heading, $h, opts.prefix));
 
         tocs.push(a);
 
