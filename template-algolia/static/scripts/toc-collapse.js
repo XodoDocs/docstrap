@@ -256,7 +256,7 @@
             if (caret) caret.style['margin-left'] = '14px';
             
             caret = prependCaret( cats.get(supercat) );
-            if (caret) caret.style['margin-left'] = '14px';
+            if (caret) caret.style['margin-left'] = '5px';
             span.css('margin-left', '40px');
             break;
 
@@ -266,6 +266,7 @@
                 scrollTo(e);
                 el.trigger('selected', $(this).attr('href'));
               });
+            span.css('margin-left', '5px');
         }
 
         tocs.push(a);
