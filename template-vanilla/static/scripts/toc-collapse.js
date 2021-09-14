@@ -60,6 +60,7 @@
 
     var container = $(opts.container);
     var tocs = [];
+    var cats = new Map();
     var headings = $(opts.selectors, container);
     var headingOffsets = [];
     var activeClassName = 'active';
@@ -208,6 +209,7 @@
                 rotateCaret($(this).find("b")[0]);
                 el.trigger('selected', $(this).attr('href'));
               });
+            cats.set(supercat, a);
             break;
           case "toc-h3": 
             category = opts.anchorName(i, heading, opts.prefix);
@@ -230,9 +232,9 @@
                 rotateCaret($(this).find("b")[0]);
                 el.trigger('selected', $(this).attr('href'));
               });
-            var supercats = tocs.find(element => element.attr('data-supercat') === supercat);
-            var caret = prependCaret(supercats);
+            var caret = prependCaret( cats.get(supercat) );
             if (caret) caret.style['margin-left'] = '5px';
+            cats.set(category, a);
             break;
           case "toc-h4":
             a.attr('href', '#' + opts.anchorName(i, heading, opts.prefix))
@@ -243,15 +245,10 @@
                 scrollTo(e);
                 el.trigger('selected', $(this).attr('href'));
               });
-            var cats = tocs.find(element => element.attr('data-category') === category);
-            var caret = prependCaret(cats);
-            console.log(caret);
+            var caret = prependCaret( cats.get(category) );
             if (caret) caret.style['margin-left'] = '14px';
-            
-            var supercats = tocs.find(element => element.attr('data-supercat') === supercat);
-            caret = prependCaret(supercats);
+            caret = prependCaret( cats.get(supercat) );
             if (caret) caret.style['margin-left'] = '14px';
-
             span.css('margin-left', '40px');
             break;
           default:
