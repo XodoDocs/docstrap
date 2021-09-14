@@ -4932,6 +4932,12 @@ a.badge:focus {
   text-decoration: none;
   cursor: pointer;
 }
+.list-group-item > .toc-h1 {
+  color: #00a5e4;
+}
+.list-group-item.active > .toc-h1 {
+  color: #fff;
+}
 .list-group-item.active > .badge,
 .nav-pills > .active > a > .badge {
   color: #00a5e4;
@@ -4943,6 +4949,7 @@ a.badge:focus {
 .list-group-item > .badge + .badge {
   margin-right: 5px;
 }
+
 .nav-pills > li > a > .badge {
   margin-left: 3px;
 }
@@ -6897,19 +6904,25 @@ img.branding-logo {
   padding: 5px;
 }
 #toc .toc-h1 {
+  font-size: 14px;
+  font-weight: bold;
   margin-left: 2px;
   margin-right: 2px;
 }
 #toc .toc-h2 {
-  margin-left: 7px;
+  font-size: 14px;
+  font-weight: bold;
+  margin-left: 15px;
   margin-right: 7px;
 }
 #toc .toc-h3 {
-  margin-left: 14px;
+  font-size: 14px;
+  margin-left: 22px;
   margin-right: 7px;
 }
 #toc .toc-h4 {
-  margin-left: 21px;
+  opacity: 80%;
+  margin-left: 30px;
   margin-right: 7px;
 }
 .copyright {
