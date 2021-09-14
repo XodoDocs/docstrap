@@ -252,14 +252,17 @@
                 el.trigger('selected', $(this).attr('href'));
               });
 
-            var caret = prependCaret( cats.get(category) );
-            if (caret) caret.style['margin-left'] = '14px';
-            
-            caret = prependCaret( cats.get(supercat) );
+            var caret = prependCaret( cats.get(supercat) );
             if (caret) caret.style['margin-left'] = '5px';
-            span.css('margin-left', '40px');
+            
+            if (category) {
+              caret = prependCaret( cats.get(category) );
+              if (caret) caret.style['margin-left'] = '14px';
+              span.css('margin-left', '40px');
+            } else {
+              span.css('margin-left', '32px');
+            }
             break;
-
           default:
             category = '';
             a.bind('click', function(e) {
