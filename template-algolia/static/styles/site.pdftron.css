@@ -6912,6 +6912,7 @@ img.branding-logo {
 #toc .toc-h2 {
   font-size: 14px;
   font-weight: bold;
+  opacity: 90%;
   margin-left: 15px;
   margin-right: 7px;
 }
