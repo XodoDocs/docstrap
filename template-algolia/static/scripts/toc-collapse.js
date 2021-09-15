@@ -195,7 +195,6 @@
             category = '';
             a.attr('data-supercat', supercat)
               .bind('click', function(e) {
-                scrollTo(e);
                 var children = document.querySelectorAll(`[data-in-supercat="${$(this).attr('data-supercat')}"]`);
                 Array.from(children).forEach((child) => { 
                   if (child.style.display === "none") {
@@ -224,7 +223,6 @@
               .attr('data-category', category)
               .attr('data-in-supercat', supercat)
               .bind('click', function(e) {
-                scrollTo(e);
                 var children = document.querySelectorAll(`[data-in-category="${$(this).attr('data-category')}"]`);
                 Array.from(children).forEach((child) => { 
                   if ($(this).css('display') !== "none") {
