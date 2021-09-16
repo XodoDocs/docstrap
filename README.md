@@ -178,7 +178,7 @@ DocStrap ships with a `conf.json` file in the template/ directory. It is just a 
 		}
 	}
 	```
-* __categories__ Defaults to false. When `categories` is true and `sort` is "category", members, methods, and events of symbols in `categoriesFor` will be sorted within their groups by the values of their `@category` tags. Items with the same category will be placed under a subheading labelled with the title of their category. These subheadings will also show up in the side nav. 
+* __categories__ Defaults to false. When `categories` is true and `sort` is "category", members, methods, and events will be sorted within their groups by the values of their `@category` tags. Parent symbols should be placed in `categoriesFor` array to work properly. Items with the same category will be placed under a subheading labelled with the title of their category. These subheadings will also show up in the side nav. 
 * __categoriesFor__ Specifies parent symbols whose children should be sorted into categories. Only effective when `categories` is true and `sort` is category.
 * __collapseCategories__ Collapses categories in the side nav. Only effective when `categories` is true and `sort` is category.
 
