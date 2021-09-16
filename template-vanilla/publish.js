@@ -61,6 +61,7 @@ var navOptions = {
   renderConstantsFor: conf.renderConstantsFor || null,
   categories: conf.categories || false,
   collapseCategories: conf.collapseCategories || false,
+  categoriesFor: conf.categoriesFor || []
 };
 var searchableDocuments = {};
 
@@ -523,7 +524,14 @@ exports.publish = function(taffyData, opts, tutorials) {
         Object.assign(doclet, {hidesource: true});
       }
     }
-  });  
+  });
+
+  // add category "Other" to members who lack categories
+  data().each(function(doclet) {
+    if (navOptions.categoriesFor.includes(doclet.memberof) && !doclet.category) {
+      doclet.category = 'Other'
+    }
+  });
 
   var templatePath = opts.template;
   view = new template.Template(templatePath + '/tmpl');
