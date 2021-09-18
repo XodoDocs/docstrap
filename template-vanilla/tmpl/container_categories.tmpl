@@ -127,11 +127,20 @@
         <dl><?js 
             let category = '';
             members.forEach(function(p, i) {
+                let printLine = true;
                 if (p.category && category !== p.category) {
                     category = p.category; 
+                    printLine = false;
                     if (i !== 0) { ?><br><?js } ?>
-                    <h3 class="subsection-title"><?js= category ?></h3>
-                <?js } ?>
+                    <h3 class="subsection-title"><?js= category ?></h3><hr class="category-line">
+                <?js } 
+                
+                if (p.category === undefined && i === 0) {
+                    printLine = false;?>
+                    <hr class="category-line">
+                <?js
+                }
+                Object.assign(p, {printLine: printLine}); ?>
             <?js= self.partial('members.tmpl', p) ?>
         <?js }); ?></dl>
     <?js } ?>
@@ -145,11 +154,20 @@
         <dl><?js 
             let category = '';
             methods.forEach(function(m, i) {
+                let printLine = true;
                 if (m.category && category !== m.category) {
                     category = m.category; 
+                    printLine = false;
                     if (i !== 0) { ?><br><?js } ?>
-                    <h3 class="subsection-title"><?js= category ?></h3>
-                <?js } ?>
+                    <h3 class="subsection-title"><?js= category ?></h3><hr class="category-line">
+                <?js } 
+                                
+                if (m.category === undefined && i === 0) {
+                    printLine = false;?>
+                    <hr class="category-line">
+                <?js
+                }
+                Object.assign(m, {printLine: printLine}) ?>
             <?js= self.partial('method.tmpl', m) ?>
         <?js }); ?></dl>
     <?js } ?>
@@ -183,11 +201,20 @@
         <dl><?js 
             let category = '';
             events.forEach(function(e, i) {
+                let printLine = true;
                 if (e.category && category !== e.category) {
                     category = e.category; 
+                    printLine = false;
                     if (i !== 0) { ?><br><?js } ?>
-                    <h3 class="subsection-title"><?js= category ?></h3>
-                <?js } ?>
+                    <h3 class="subsection-title"><?js= category ?></h3><hr class="category-line">
+                <?js }
+                                
+                if (e.category === undefined && i === 0) {
+                    printLine = false;?>
+                    <hr class="category-line">
+                <?js
+                } 
+                Object.assign(e, {printLine: printLine}); ?>
             <?js= self.partial('method.tmpl', e) ?>
         <?js }); ?></dl>
     <?js } ?>

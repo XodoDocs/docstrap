@@ -1,8 +1,10 @@
 <?js
 var data = obj;
 var self = this;
-?>
-<hr>
+if (data.printLine) { ?>
+    <hr>
+<?js }?>
+
 <dt class="name" id="<?js= id ?>">
     <h4 id="<?js= id ?>"><?js= (this.navOptions.hideAttribs ? '' : data.attribs) + name + (data.signature ? data.signature : '') ?></h4>
 
