@@ -104,15 +104,25 @@
     }
 
     const getAncestors = function (child, list) {
+      function validCategory (name, value, category) {
+        if (name.includes(category)) {
+          if (value !== "") {
+            return true;
+          }
+        }
+        return false;
+      }
+
       const attributes = child[0].attributes;
       const attribLength = attributes.length;
-      const hasCategory = attributes.item(attribLength - 2).name.includes("data-in-category");
+      const inCategory = validCategory(attributes.item(attribLength - 2).name, attributes.item(attribLength - 2).value, "data-in-category");
+      const inSuperCategory = validCategory(attributes.item(attribLength - 1).name, attributes.item(attribLength - 1).value, "data-in-supercat");
       let catArray = [];
       const ancestors = [];
 
-      if (hasCategory) {
+      if (inCategory) {
         catArray = [attributes.item(attribLength - 2).value, attributes.item(attribLength - 1).value];
-      } else {
+      } else if (inSuperCategory) {
         catArray = [null, attributes.item(attribLength - 1).value];
       }
 
