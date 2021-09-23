@@ -140,6 +140,24 @@
       return ancestors;
     };
 
+    const isVisible = function (element, noOfAncestors) {
+      let visible = true;
+      let style;
+      switch (noOfAncestors) {
+        case 1:
+        case 2:
+          style = element[0].attributes.getNamedItem("style");
+          if (style !== null) {
+            if (style.value.includes("none") === true) {
+              visible = false;
+            }
+          }
+          break;
+        default:
+      }
+      return visible;
+    };
+
     //highlight on scroll
     var timeout;
     var highlightOnScroll = function(e) {
@@ -170,20 +188,13 @@
               highlighted = tocs[i].addClass(activeClassName);
               const ancestors = getAncestors(highlighted, tocs);
               opts.onHighlight(highlighted);
-              let style = highlighted[0].attributes.getNamedItem("style");
-              if (style !== null) {
-                style = style.value;
-                if (style.includes("none") === true || ancestors.length !== 2) {
-                  ancestors.forEach((ancestor) => {
-                    ancestor.addClass(activeClassName);
-                    opts.onHighlight(ancestor);
-                  });
+              for (const member of ancestors) {
+                const noOfAncestors = ancestors.length - ancestors.indexOf(member);
+                if (isVisible(member, noOfAncestors) && !isVisible(highlighted, ancestors.length)) {
+                  member.addClass(activeClassName);
+                  opts.onHighlight(member);
+                  break;
                 }
-              } else {
-                ancestors.forEach((ancestor) => {
-                  ancestor.addClass(activeClassName);
-                  opts.onHighlight(ancestor);
-                });
               }
             }
             break;
