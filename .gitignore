@@ -10,3 +10,5 @@ themes*
 npm-debug.log
 .DS_Store
 ._*
+.polaris-coverity.zip
+.synopsys
